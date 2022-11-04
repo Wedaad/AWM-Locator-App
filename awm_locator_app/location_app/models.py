@@ -1,4 +1,5 @@
 # Create your models here.
+from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 
 
@@ -22,3 +23,11 @@ class WorldBorder(models.Model):
     # Returns the string representation of the model.
     def __str__(self):
         return self.name
+
+
+# Extending in-built user model with one-to-one relationship
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    username = models.CharField(max_length=50, primary_key=True)
+    email = models.CharField(max_length=50, null=True)
+    user_location = models.PointField(null=True)
