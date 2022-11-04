@@ -1,0 +1,27 @@
+#footer-div {
+    color: white;
+}
+
+#index-icon {
+
+    width: 500px;
+    height: 550px;
+}
+
+.index-container {
+    border: 5px solid blueviolet;
+    padding: 15px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.index-btn-container {
+    border: 5px solid blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+
+}
