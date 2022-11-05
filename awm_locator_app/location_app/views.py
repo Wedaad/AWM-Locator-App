@@ -39,7 +39,7 @@ def new_user_registration(request):
             form.save()
             new_profile = UserProfile(user=new_user, username=username, email=email)
             new_profile.save()
-            return redirect("/login")
+            return redirect("/register_success")
         else:
             return redirect("/")
     else:

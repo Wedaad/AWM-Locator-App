@@ -25,6 +25,9 @@ urlpatterns = [
     path('register/', views.new_user_registration, name='register_user'),
     path('user_logout/', views.user_logout, name='userlogout'),
     path('logout/', TemplateView.as_view(template_name='user_forms/logout.html'), name='logout'),
-    path('menu/', TemplateView.as_view(template_name='user_menu.html'), name='menu')
+    path('menu/', TemplateView.as_view(template_name='user_menu.html'), name='menu'),
+    path('register_success/', TemplateView.as_view(template_name='user_forms/register_success.html'), name='register_success'),
+    path('map/', TemplateView.as_view(template_name='view_map.html'), name='map'),
+    path('update_profile/', )
 
 ]
