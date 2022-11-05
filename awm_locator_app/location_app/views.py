@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from .models import UserProfile
@@ -45,3 +45,9 @@ def new_user_registration(request):
     else:
         form = RegisterUserForm()
     return render(request=request, template_name="user_forms/register.html", context={"signup_form": form})
+
+
+def user_logout(request):
+    logout(request)
+    return redirect("/")
+
