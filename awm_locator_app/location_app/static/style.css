@@ -30,6 +30,29 @@ body {
 
 }
 
+.div-container {
+    border: 5px solid blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.home-div {
+
+    border: 5px solid greenyellow;
+    height: 500px;
+    width: 50%;
+    margin-right: 50px;
+}
+
+.view-map-div {
+
+    border: 5px solid coral;
+    height: 500px;
+    width: 50%;
+    margin-left: 50px;
+}
 /*footer {*/
 /*    position: absolute;*/
 /*    bottom: 0;*/
