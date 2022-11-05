@@ -23,4 +23,8 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('login/', views.user_login, name='login'),
     path('register/', views.new_user_registration, name='register_user'),
+    path('user_logout/', views.user_logout, name='userlogout'),
+    path('logout/', TemplateView.as_view(template_name='user_forms/logout.html'), name='logout'),
+    path('menu/', TemplateView.as_view(template_name='user_menu.html'), name='menu')
+
 ]
