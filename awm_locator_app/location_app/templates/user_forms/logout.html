@@ -22,11 +22,16 @@
      </nav>
 
     {% block content %}
-            <div>
+            <div class="container m-3">
                 <h4>Logging User out...</h4>
                 <p>Are you sure you want to logout?</p>
+
+                <div class="d-flex justify-content-start">
+                    <p class="m-2"><a href="{% url 'userlogout' %}">Log Out</a></p>
+                    <p class="m-2"><a href="{% url 'menu' %}">Go Back</a></p>
+                </div>
             </div>
-            <p><a href="{% url 'userlogout' %}">Log Out</a></p>
+
     {% endblock %}
 </body>
 </html>
