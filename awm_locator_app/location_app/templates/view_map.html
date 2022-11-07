@@ -20,7 +20,7 @@
       </ul>
              <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                     <a class="nav-link disabled" href="#" >{{user.username}}</a>
+                     <a class="nav-link disabled" href="#" >Hello {{user.username}}!</a>
                 </li>
 
                  <li class="nav-item">
@@ -47,39 +47,83 @@
             <div id='map'>{% leaflet_map "locator_map" %}</div>
         </div>
 
+        <form method="post" action="{% url 'update_location' %}">
+            {% csrf_token %}
+        </form>
+
         <script>
-                let map = L.map('map').fitWorld();
 
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 30,
-                    attribution: '© OpenStreetMap'
-                }).addTo(map);
+            let map = L.map('map');
 
-                map.locate({setView: true, maxZoom: 30});
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 30,
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
 
-                function findUserLocation(e) {
+            map.locate({setView: true, maxZoom: 30});
 
-                    let radius = e.accuracy * 5;
-                    let lat = e.latlng.lat;
-                    let long  = e.latlng.lng;
+            function onLocationFound(e) {
 
-                    L.marker(e.latlng).addTo(map)
-                    // .bindPopup("You are within " + radius + " meters from this point").openPopup();
-                    .bindPopup("Location Found.\n\nLat: " + lat + ", Long: " + long +
-                    "\nUpdating database with location").openPopup();
+                let radius = e.accuracy;
+                let lat = e.latlng.lat;
+                let long  = e.latlng.lng;
+                let location = lat + ", " + long;
 
-                     L.circle(e.latlng, radius).addTo(map);
+                L.marker(e.latlng).addTo(map)
+                .bindPopup("Location Found.\n\nLat: " + lat + ", Long: " + long +
+                "\nUpdating database with location").openPopup();
 
-                     console.log("location: " + lat + " " + " " + long);
+                 L.circle(e.latlng, radius).addTo(map);
+
+                console.log(lat + " " + long);
+                updateLocation(location, lat, long);
+
+            }
+
+            function onLocationError(e) {
+                alert(e.message);
+            }
+
+            map.on('locationerror', onLocationError);
+            map.on('locationfound', onLocationFound);
+
+            map.locate({setView: true, maxZoom: 16});
+
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
                 }
+                return cookieValue;
+            }
 
-                map.on('locationfound', findUserLocation);
+            function updateLocation(location, lat, long) {
 
-                function noUserLocation(e) {
-                    alert(e.message);
-                }
+                console.log("In updatelocation(): " + location);
+                let csrftoken = getCookie('csrftoken');
 
-                map.on('locationerror', noUserLocation);
+                let request = fetch('{% url 'update_location' %}', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: JSON.stringify({latitude: lat, longitude: long})
+
+                });
+
+                request.then(response => response.json());
+                request.then(data => console.log(data));
+            }
 
         </script>
     {% endblock %}

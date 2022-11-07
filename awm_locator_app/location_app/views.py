@@ -1,5 +1,9 @@
+import json
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.gis.geos import Point
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import UserProfile
 from location_app.forms import RegisterUserForm
@@ -17,7 +21,6 @@ def user_login(request):
 
             if user is not None:
                 login(request, user)
-                # messages.info(request, f"You are now logged in as {username}.")
                 return redirect("/menu")
             else:
                 return redirect('/')
@@ -50,4 +53,30 @@ def new_user_registration(request):
 def user_logout(request):
     logout(request)
     return redirect("/")
+
+
+@login_required
+def update_location(request):
+    try:
+        profile = request.user.userprofile
+
+        if not profile:
+            raise ValueError("Can't get user profile")
+
+        location = json.loads(request.body)
+
+        profile.test_location = location
+        lat = float(location['latitude'])
+        long = float(location['longitude'])
+
+        profile.latitude = lat
+        profile.longitude = long
+        profile.user_location = Point(lat, long, srid=4326)
+        profile.save()
+
+        return JsonResponse(f"Location updated to {lat}, {long}", status=200, safe=False)
+    except Exception as e:
+        return JsonResponse("Error: " + str(e), status=400, safe=False)
+
+
 
