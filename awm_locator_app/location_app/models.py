@@ -30,4 +30,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     username = models.CharField(max_length=50, primary_key=True)
     email = models.CharField(max_length=50, null=True)
+    longitude = models.DecimalField(max_digits=5, decimal_places=3, null=True)
+    latitude = models.DecimalField(max_digits=5, decimal_places=3, null=True)
     user_location = models.PointField(null=True)
