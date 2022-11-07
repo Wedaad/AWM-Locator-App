@@ -19,7 +19,7 @@
              </ul>
              <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                     <a class="nav-link disabled" href="#" >{{user.username}}</a>
+                     <a class="nav-link disabled" href="#" >Hello {{user.username}}!</a>
                 </li>
 
                  <li class="nav-item">
@@ -39,12 +39,8 @@
     {% block content %}
         <h2 class="text-center m-3">Locator App Main Menu</h2>
         <p class="msg text-center">Welcome, {{user.username}}</p>
+
         <div class="div-container">
-            <div class="home-div">
-                <img src="{% static 'images/profile.png' %}" alt="user profile placeholder" id="location-icon"/>
-                <p class="msg">Update your profile.</p>
-                <a href="{% url 'map' %}" class="btn btn-lg btn-outline-info" role="button" aria-pressed="true">Update Profile</a>
-            </div>
             <div class="view-map-div">
                 <img src="{% static 'images/location-marker.jpg' %}" alt="locator marker" id="location-icon"/>
                 <p class="msg">View map and get your current location!</p>
