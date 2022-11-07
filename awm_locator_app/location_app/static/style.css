@@ -19,7 +19,6 @@ body {
 }
 
 .index-container {
-    border: 5px solid blueviolet;
     padding: 15px;
     margin: 20px;
     display: flex;
@@ -28,7 +27,6 @@ body {
 }
 
 .index-btn-container {
-    border: 5px solid blueviolet;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,18 +40,6 @@ body {
     align-items: center;
     padding: 50px;
 }
-
-.home-div {
-
-    height: 500px;
-    width: 50%;
-    margin-right: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
 .view-map-div {
 
     height: 500px;
@@ -66,17 +52,17 @@ body {
 }
 
 .reg-success-container {
-    border: 5px solid cornflowerblue;
+    padding: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    flex-direction: column;
 }
 
 #reg-success-icon  {
 
-    width: 500px;
-    height: 550px;
+    width: 300px;
+    height: 350px;
 }
 
 #location-icon {
