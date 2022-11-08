@@ -100,7 +100,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
-            'NAME': 'test_assignmentDB',
+            'NAME': 'assignmentDB',
             'HOST': 'localhost',
             'USER': 'docker',
             'PASSWORD': 'docker',
