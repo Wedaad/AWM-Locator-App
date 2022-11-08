@@ -39,26 +39,23 @@
 
     {% block content %}
         {% load leaflet_tags %}
-        {% leaflet_css %}
-        {% leaflet_js %}
         <h3 class="text-center m-3">Your Location</h3>
-
-        <div class="map-container">
-            <div id='map'>{% leaflet_map "locator_map" %}</div>
-        </div>
 
         <form method="post" action="{% url 'update_location' %}">
             {% csrf_token %}
         </form>
 
+        <div id='map'></div>
+    {% endblock %}
+
+    {% block javascript %}
         <script>
+            console.log(":)");
 
-            let map = L.map('map');
-
+            map = L.map('map', {doubleClickZoom: false}).locate({setView: true, maxZoom: 16});
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 30,
-                attribution: '© OpenStreetMap'
-            }).addTo(map);
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
 
             map.locate({setView: true, maxZoom: 30});
 
@@ -124,7 +121,6 @@
                 request.then(response => response.json());
                 request.then(data => console.log(data));
             }
-
         </script>
     {% endblock %}
 </body>
