@@ -50,7 +50,6 @@
 
     {% block javascript %}
         <script>
-            console.log(":)");
 
             map = L.map('map', {doubleClickZoom: false}).locate({setView: true, maxZoom: 16});
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -72,8 +71,8 @@
 
                  L.circle(e.latlng, radius).addTo(map);
 
-                console.log(lat + " " + long);
-                updateLocation(location, lat, long);
+                {#console.log(lat + " " + long);#}
+                updateLocation(location);
 
             }
 
@@ -102,24 +101,37 @@
                 return cookieValue;
             }
 
-            function updateLocation(location, lat, long) {
+            function updateLocation(location) {
 
                 console.log("In updatelocation(): " + location);
                 let csrftoken = getCookie('csrftoken');
 
-                let request = fetch('{% url 'update_location' %}', {
-                    method: 'POST',
+                $.ajax({
+                    type: 'POST',
                     headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
+
                         'X-CSRFToken': csrftoken
                     },
-                    body: JSON.stringify({latitude: lat, longitude: long})
+                    url: '{% url 'update_location' %}',
+                    data: {
 
+                        userlocation: location
+                    }
+                }).done(function (data, status, xhr) {
+                    console.log(data["message"])
+                    let originalMsg = $(".toast-body").html();
+                    $(".toast-body").html(originalMsg + "<br/>Updateddatabase<br/>" + data["message"]);
+                }).fail(function (xhr, status, error) {
+                    console.log(error);
+                    let originalMsg = $(".toast-body").html();
+                    $(".toast-body").html(originalMsg + "<br/>" + error);
+                }).always(function () {
+                    console.log("updateLocation() finished");
+                    $(".toast").toast('show');
                 });
 
-                request.then(response => response.json());
-                request.then(data => console.log(data));
+                {#request.then(response => response.json());#}
+                {#request.then(data => console.log(data));#}
             }
         </script>
     {% endblock %}
