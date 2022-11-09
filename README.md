@@ -11,7 +11,7 @@ All the code for this project is on a branch called dev-branch.
     3. location_app - which conatins the Django project
    
     
- The external libraries used for this project can be found in the ENV.yml file
+ The external libraries used for this project can be found in the ENV.yml file. Project was developed in a conda environment
  
  ## Locator App
  ### Html files
