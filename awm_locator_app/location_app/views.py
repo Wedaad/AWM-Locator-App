@@ -57,26 +57,25 @@ def user_logout(request):
 
 @login_required
 def update_location(request):
+    current_location = request.POST.get("userlocation", None)
+    if not current_location:
+        return JsonResponse({"message": f"No location found. {current_location}"}, status=400)
+
     try:
         profile = request.user.userprofile
 
         if not profile:
             raise ValueError("Can't get user profile")
 
-        location = json.loads(request.body)
-
-        profile.test_location = location
-        lat = float(location['latitude'])
-        long = float(location['longitude'])
-
-        profile.latitude = lat
-        profile.longitude = long
-        profile.user_location = Point(lat, long, srid=4326)
+        coordinates = [float(coordinate) for coordinate in current_location.split(',')]
+        profile.user_location = Point(coordinates, srid=4326)
         profile.save()
 
-        return JsonResponse(f"Location updated to {lat}, {long}", status=200, safe=False)
-    except Exception as e:
-        return JsonResponse("Error: " + str(e), status=400, safe=False)
+        update_msg = f'Update current location for {request.user.username} to {coordinates}'
+
+        return JsonResponse({"message": update_msg}, status=200)
+    except:
+        return JsonResponse({"Error: ": "No Location found"}, status=400)
 
 
 
