@@ -20,10 +20,14 @@ All the code for this project is on a branch called dev-branch.
  - A menu page which displays what services are available to the user
  - A map page which displays a map and plots the users current location with a little pop-up message containing their location (map is generated using leafletJs)
   
+ ### Model
+ - World borders model containing geodjango data 
+ - User profile model which uses a one-to-one link to extend the Django auth User model. User profile now includes a userlocation column to store location data
  
  ### Views
  - A register view which is connected to the registration form when a new user is registered
  - A login view which is conneted to the login form
+ - A update_location view which updates the location data in the database. Location is updated via an ajax request passed whenever the map page is open
  All forms are generated using crispy forms
  
  ### Static files
