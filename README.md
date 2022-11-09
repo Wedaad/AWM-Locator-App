@@ -14,13 +14,13 @@ All the code for this project is on a branch called dev-branch.
  The external libraries used for this project can be found in the ENV.yml file. Project was developed in a conda environment
  
  ## Locator App
- ### Html files
+ ### Html files (Templates)
  - A sign-up page which allows new users to register
  - A login page which allows existing users to login
  - A menu page which displays what services are available to the user
  - A map page which displays a map and plots the users current location with a little pop-up message containing their location (map is generated using leafletJs)
   
- ### Model
+ ### Models
  - World borders model containing geodjango data 
  - User profile model which uses a one-to-one link to extend the Django auth User model. User profile now includes a userlocation column to store location data
  
@@ -52,8 +52,11 @@ However after all these steps deployment resulted in a 404 not found when testin
  DNS record modification
 ![image](https://user-images.githubusercontent.com/57072598/200922725-89137592-7c32-4ead-a782-312329b1908b.png)
 
-Digital Ocean Droplet
+DigitalOcean Droplet
 ![image](https://user-images.githubusercontent.com/57072598/200924275-bde85f04-0dea-4d88-91ee-a7b9fff158b0.png)
+
+Docker VM on DigitalOcean Droplet
+![image](https://user-images.githubusercontent.com/57072598/200927499-28bbc016-61f6-42cc-aaaa-1f4262478c24.png)
 
 Nginx web server on wedaadharuna.online
 ![image](https://user-images.githubusercontent.com/57072598/200924664-7c6a0e00-dec0-484b-b937-c430b8ab8867.png)
