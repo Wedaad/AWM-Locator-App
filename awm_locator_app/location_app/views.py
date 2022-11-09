@@ -59,7 +59,7 @@ def user_logout(request):
 def update_location(request):
     current_location = request.POST.get("userlocation", None)
     if not current_location:
-        return JsonResponse({"message": f"No location found. {current_location}"}, status=400)
+        return JsonResponse({"message": "No location found."}, status=400)
 
     try:
         profile = request.user.userprofile
